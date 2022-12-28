@@ -5,7 +5,7 @@ const app = express();
 
 app.set("view engine", "ejs");
 
-app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // Get the RDS connection details from environment variables
 const host = "seif-rds.cdgxzsc1f3sx.us-east-1.rds.amazonaws.com";
