@@ -18,37 +18,22 @@ const connection = mysql.createConnection({
 });
 
 // Connect to the database
-connection.connect(function (err) {
-  if (err) {
-    console.error("Error connecting: " + err.stack);
-    return;
-  }
-  console.log("Connected to RDS database as id " + connection.threadId);
+connection.connect((error) => {
+  if (error) throw error;
+  console.log('Connected to the database');
 });
 
-// Set up a route to retrieve data from the employees table
-app.get("/employees", function (req, res) {
-  connection.query(
-    "SELECT * FROM employees",
-    function (error, results, fields) {
-      if (error) {
-        console.error(error);
-        res.send("Error retrieving employees");
-        return;
-      }
-      res.send(results);
-    }
-  );
+// Set up a route to get employee data
+app.get('/employees', (req, res) => {
+  connection.query('SELECT * FROM employees', (error, results) => {
+    if (error) throw error;
+
+    // Render the employee data in a template
+    res.render('employees', { employees: results });
+  });
 });
 
 // Start the server
-const port = 3000;
-app.listen(port, function () {
-  console.log(`App listening on port ${port}`);
-});
-
-// Close the connection when the app is closed
-process.on("SIGINT", () => {
-  connection.end();
-  process.exit();
+app.listen(3000, () => {
+  console.log('Server listening on port 3000');
 });
