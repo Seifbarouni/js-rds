@@ -27,6 +27,10 @@ connection.connect((error) => {
   console.log("Connected to the database");
 });
 
+app.get("/employees", (req, res) => {
+  res.redirect("/");
+});
+
 // Set up a route to get employee data
 app.get("/", (req, res) => {
   connection.query("SELECT * FROM employees", (error, results) => {
