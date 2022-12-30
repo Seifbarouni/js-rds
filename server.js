@@ -28,7 +28,7 @@ connection.connect((error) => {
 });
 
 // Set up a route to get employee data
-app.get("/employees", (req, res) => {
+app.get("/", (req, res) => {
   connection.query("SELECT * FROM employees", (error, results) => {
     if (error) throw error;
 
@@ -37,7 +37,7 @@ app.get("/employees", (req, res) => {
   });
 });
 
-app.post("/employees", (req, res) => {
+app.post("/", (req, res) => {
   const name = req.body.name;
   const department = req.body.department;
 
@@ -47,7 +47,7 @@ app.post("/employees", (req, res) => {
     (error, results) => {
       if (error) throw error;
 
-      res.redirect("/employees");
+      res.redirect("/");
     }
   );
 });
